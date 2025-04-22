@@ -14,3 +14,7 @@ crash.log
 
 # For built boxes
 *.box
+
+
+*.auto.pkrvars.hcl
+secrets.auto.pkrvars.hcl
