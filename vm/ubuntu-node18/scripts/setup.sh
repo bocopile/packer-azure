@@ -2,12 +2,11 @@
 
 set -e
 
-# Node.js 18 설치
+# 필수 설치
+sudo apt-get update
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs build-essential net-tools curl
 
-# 기타 설치
-sudo apt-get install -y net-tools curl
 
 # 환경 변수 불러오기
 source /home/bocopile/.bashrc
@@ -29,8 +28,13 @@ After=network.target
 
 [Service]
 User=bocopile
-ExecStart=/usr/bin/node /home/bocopile/app/index.js
+WorkingDirectory=/home/bocopile/app
+ExecStart=/usr/bin/node index.js
+EnvironmentFile=/home/bocopile/app/.env
 Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=express-winston
 
 [Install]
 WantedBy=multi-user.target
@@ -38,7 +42,3 @@ EOF
 
 sudo systemctl daemon-reexec
 sudo systemctl enable app.service
-
-# node 모듈 권한 부여
-sudo chmod -R 755 /usr/lib/node_modules/
-sudo chown -R bocopile:bocopile /usr/lib/node_modules/
