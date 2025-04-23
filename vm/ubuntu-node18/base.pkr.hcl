@@ -4,7 +4,7 @@ source "azure-arm" "ubuntu" {
   tenant_id         = var.tenant_id
   subscription_id   = var.subscription_id
 
-  managed_image_name                = "${var.image_name}-${var.image_version}"
+  managed_image_name                = "${var.image_name}-${var.version}"
   managed_image_resource_group_name = var.resource_group
   location                          = var.location
 

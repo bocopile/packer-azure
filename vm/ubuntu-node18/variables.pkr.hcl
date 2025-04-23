@@ -10,9 +10,6 @@ variable "gallery_name" {
 variable "image_name" {
   default = "node_vm_ubuntu_24"
 }
-variable "image_version" {
-  default = "1.0.0"
-}
 
 # OS 이미지 정보 변수화
 variable "os_type" {
