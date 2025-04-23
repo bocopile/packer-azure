@@ -1,8 +1,6 @@
 # Cache objects
 packer_cache/
 
-# Crash log
-crash.log
 
 # https://www.packer.io/guides/hcl/variables
 # Exclude all .pkrvars.hcl files, which are likely to contain sensitive data, 
@@ -18,3 +16,4 @@ crash.log
 
 *.auto.pkrvars.hcl
 secrets.auto.pkrvars.hcl
+*.log
