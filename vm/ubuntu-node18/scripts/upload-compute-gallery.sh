@@ -65,7 +65,7 @@ else
 fi
 
 # -----------------------------
-# 3. 기존 버전 존재 시 삭제
+# 3. 이미지 버전 존재 시 등록 스킵
 # -----------------------------
 if az sig image-version show \
     --resource-group "$RESOURCE_GROUP" \
@@ -73,28 +73,23 @@ if az sig image-version show \
     --gallery-image-definition "$IMAGE_DEFINITION" \
     --gallery-image-version "$IMAGE_VERSION" &> /dev/null; then
 
-  echo "⚠️ 기존 버전이 존재합니다. 삭제 후 재등록합니다."
-  az sig image-version delete \
+  echo "⚠️ 이미지 버전 '$IMAGE_VERSION' 이(가) 이미 존재합니다. 등록을 스킵합니다."
+else
+  # -----------------------------
+  # 4. 이미지 버전 등록
+  # -----------------------------
+  echo "📦 이미지 버전 등록 중..."
+  az sig image-version create \
     --resource-group "$RESOURCE_GROUP" \
     --gallery-name "$GALLERY_NAME" \
     --gallery-image-definition "$IMAGE_DEFINITION" \
-    --gallery-image-version "$IMAGE_VERSION"
+    --gallery-image-version "$IMAGE_VERSION" \
+    --managed-image "$MANAGED_IMAGE_ID" \
+    --location "$LOCATION" \
+    --target-regions "$LOCATION"
+
+  echo "✅ 이미지 버전 등록 완료: $IMAGE_VERSION"
 fi
-
-# -----------------------------
-# 4. 이미지 버전 등록
-# -----------------------------
-echo "📦 이미지 버전 등록 중..."
-az sig image-version create \
-  --resource-group "$RESOURCE_GROUP" \
-  --gallery-name "$GALLERY_NAME" \
-  --gallery-image-definition "$IMAGE_DEFINITION" \
-  --gallery-image-version "$IMAGE_VERSION" \
-  --managed-image "$MANAGED_IMAGE_ID" \
-  --location "$LOCATION" \
-  --target-regions "$LOCATION"
-
-echo "✅ 이미지 버전 등록 완료: $IMAGE_VERSION"
 
 # -----------------------------
 # 5. Managed Image 삭제
