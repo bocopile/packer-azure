@@ -1,5 +1,5 @@
 variable "resource_group" {
-  default = "devops-resouce"
+  default = "devops-resource"
 }
 variable "location" {
   default = "koreasouth"
