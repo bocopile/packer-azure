@@ -2,12 +2,11 @@
 
 ```bash
 packer-ubuntu-node18/
-├── variables.pkr.hcl
-├── versions.pkr.hcl
+├── variables.pkr.hcl  # 파라미터 세팅
+├── versions.pkr.hcl   # Packer, Plugin 최소 버전 체크
 ├── builder-azure.pkr.hcl
 ├── provisioner-node18.pkr.hcl
-└── scripts/
-└── setup.sh
+└── scripts/setup.sh
 ```
 
 # packer 실행
@@ -42,5 +41,5 @@ PACKER_LOG=1 PACKER_LOG_PATH=packer-debug.log packer build .
 
 chmod +x ./scripts/upload-compute-gallery.sh
 ./scripts/upload-compute-gallery.sh <IMAGE_DEFINITION> <IMAGE_VERSION>
-./scripts/upload-compute-gallery.sh node_vm_ubuntu_24 1.0.0
+./scripts/upload-compute-gallery.sh rabbitmq_vm_ubuntu_24 1.0.0
 ```
